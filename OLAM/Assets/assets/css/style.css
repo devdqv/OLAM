@@ -60,8 +60,18 @@ File: style.css
 }
 
 .red {
+   
     color: red;
 }
+
+.color-buy-now {
+    color: #f45c5d !important;
+}
+
+.color-add-cart {
+    color: #0879c9 !important;
+}
+
 
 .cke_contents{
     height:700px;

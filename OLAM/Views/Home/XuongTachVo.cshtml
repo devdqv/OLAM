@@ -10,6 +10,9 @@
 
 
 <div class="container">
+    <div class="row my-5">
+        <div class="col-12"><b class="h3 color-buy-now">XƯỞNG SẤY KHÔ</b></div>
+    </div>
     <div class="row">
         <div class="col-md-3 col-sm-3  form-group">
             <label class="col-form-label">Ngày bắt đầu <span class="red">*</span></label>
@@ -32,26 +35,25 @@
     </div>
     <div class="row mb-4"> 
         <div class="col-4"> 
-            <button class="btn btn-primary"><i class="fa fa-sync-alt"></i> Update</button>
+            <button class="btn btn-primary"><i class="fa fa-sync-alt"></i> Update</button> 
             <button class="btn btn-primary"><i class="fa fa-file-excel"></i> Xuất Excel</button>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <table class="table">
+            <table class=" table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center" colspan="3">Áp suất (Bar)</th>
-                        <th class="text-center" colspan="3">Tốc độ (Drum)</th>
-
+                        <th class="text-center" colspan="2">Áp suất (Bar)</th>
+                        <th class="text-center" colspan="2">Tốc độ (Drum)</th>
+                        <th></th>
                     </tr>
                     <tr>
-                        <th scope="col">Tên cảm biến</th>
-                        <th scope="col">Giá trị</th>
-                        <th scope="col">Thời gian cập nhật</th>
-                        <th scope="col">Tên cảm biến</th>
-                        <th scope="col">Giá trị</th>
-                        <th scope="col">Thời gian cập nhật</th>
+                        <th >Tên cảm biến</th>
+                        <th >Giá trị</th>
+                        <th >Tên cảm biến</th>
+                        <th >Giá trị</th>
+                        <th >Thời gian cập nhật</th>
                     </tr>
 
                 </thead>
@@ -61,10 +63,9 @@
                         <tr>
                             <th>@x.ss_pressure</th>
                             <td>@x.value_pressure</td>
-                            <td>@x.time_update</td>
                             <td>@x.ss_speeddrum</td>
                             <td>@x.Value_speeddrum</td>
-                            <td>@x.time_update</td>
+                            <td>@(x.time_update == null?"": x.time_update.Value.ToString("dd/MM/yyyy hh:mm tt"))</td>
                         </tr>
                     }
 
