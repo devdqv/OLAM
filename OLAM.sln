@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OLAM", "OLAM\OLAM.csproj", "{F1E56492-9D60-4025-9297-3D70225B86AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1E56492-9D60-4025-9297-3D70225B86AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E56492-9D60-4025-9297-3D70225B86AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E56492-9D60-4025-9297-3D70225B86AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E56492-9D60-4025-9297-3D70225B86AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1AE7C63F-8B57-44CC-A8C2-0BBFE77348F6}
+	EndGlobalSection
+EndGlobal
