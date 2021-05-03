@@ -27,5 +27,6 @@ namespace OLAM.Models
     
         public virtual DbSet<CUTTING_DRYING> CUTTING_DRYING { get; set; }
         public virtual DbSet<PEELING> PEELINGs { get; set; }
+        public virtual DbSet<USERLOGIN> USERLOGINs { get; set; }
     }
 }

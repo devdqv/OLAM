@@ -19,8 +19,8 @@ namespace OLAM.Models
         public Nullable<System.DateTime> time_update { get; set; }
         public string ss_humidity { get; set; }
         public Nullable<double> value_humidity { get; set; }
+        public Nullable<double> value_temper { get; set; }
         public Nullable<int> timer1 { get; set; }
         public Nullable<int> timer2 { get; set; }
-        public Nullable<double> value_temper { get; set; }
     }
 }

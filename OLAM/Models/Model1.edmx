@@ -14,9 +14,9 @@
           <Property Name="time_update" Type="datetime" />
           <Property Name="ss_humidity" Type="nvarchar" MaxLength="200" />
           <Property Name="value_humidity" Type="float" />
+          <Property Name="value_temper" Type="float" />
           <Property Name="timer1" Type="int" />
           <Property Name="timer2" Type="int" />
-          <Property Name="value_temper" Type="float" />
         </EntityType>
         <EntityType Name="PEELING">
           <Key>
@@ -27,18 +27,32 @@
           <Property Name="value_pressure" Type="float" />
           <Property Name="time_update" Type="datetime" />
           <Property Name="ss_speeddrum" Type="nvarchar" MaxLength="200" />
-          <Property Name="timer_action" Type="int" />
           <Property Name="Value_speeddrum" Type="float" />
-          <Property Name="TimerAction" Type="int" />
+          <Property Name="timer_action" Type="int" />
+        </EntityType>
+        <EntityType Name="USERLOGIN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="200" />
+          <Property Name="password" Type="nvarchar" MaxLength="200" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityContainer Name="OLAMModelStoreContainer">
           <EntitySet Name="CUTTING_DRYING" EntityType="Self.CUTTING_DRYING" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PEELING" EntityType="Self.PEELING" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERLOGIN" EntityType="Self.USERLOGIN" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OLAMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OLAMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CUTTING_DRYING" EntityType="OLAMModel.CUTTING_DRYING" />
+          <EntitySet Name="PEELINGs" EntityType="OLAMModel.PEELING" />
+          <EntitySet Name="USERLOGINs" EntityType="OLAMModel.USERLOGIN" />
+        </EntityContainer>
         <EntityType Name="CUTTING_DRYING">
           <Key>
             <PropertyRef Name="id" />
@@ -48,9 +62,9 @@
           <Property Name="time_update" Type="DateTime" Precision="3" />
           <Property Name="ss_humidity" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="value_humidity" Type="Double" />
+          <Property Name="value_temper" Type="Double" />
           <Property Name="timer1" Type="Int32" />
           <Property Name="timer2" Type="Int32" />
-          <Property Name="value_temper" Type="Double" />
         </EntityType>
         <EntityType Name="PEELING">
           <Key>
@@ -61,14 +75,18 @@
           <Property Name="value_pressure" Type="Double" />
           <Property Name="time_update" Type="DateTime" Precision="3" />
           <Property Name="ss_speeddrum" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="timer_action" Type="Int32" />
           <Property Name="Value_speeddrum" Type="Double" />
-          <Property Name="TimerAction" Type="Int32" />
+          <Property Name="timer_action" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="OLAMEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="CUTTING_DRYING" EntityType="Self.CUTTING_DRYING" />
-          <EntitySet Name="PEELINGs" EntityType="Self.PEELING" />
-        </EntityContainer>
+        <EntityType Name="USERLOGIN">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -78,28 +96,37 @@
           <EntitySetMapping Name="CUTTING_DRYING">
             <EntityTypeMapping TypeName="OLAMModel.CUTTING_DRYING">
               <MappingFragment StoreEntitySet="CUTTING_DRYING">
-                <ScalarProperty Name="value_temper" ColumnName="value_temper" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="ss_temper" ColumnName="ss_temper" />
-                <ScalarProperty Name="time_update" ColumnName="time_update" />
-                <ScalarProperty Name="ss_humidity" ColumnName="ss_humidity" />
-                <ScalarProperty Name="value_humidity" ColumnName="value_humidity" />
-                <ScalarProperty Name="timer1" ColumnName="timer1" />
                 <ScalarProperty Name="timer2" ColumnName="timer2" />
+                <ScalarProperty Name="timer1" ColumnName="timer1" />
+                <ScalarProperty Name="value_temper" ColumnName="value_temper" />
+                <ScalarProperty Name="value_humidity" ColumnName="value_humidity" />
+                <ScalarProperty Name="ss_humidity" ColumnName="ss_humidity" />
+                <ScalarProperty Name="time_update" ColumnName="time_update" />
+                <ScalarProperty Name="ss_temper" ColumnName="ss_temper" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PEELINGs">
             <EntityTypeMapping TypeName="OLAMModel.PEELING">
               <MappingFragment StoreEntitySet="PEELING">
-                <ScalarProperty Name="TimerAction" ColumnName="TimerAction" />
-                <ScalarProperty Name="Value_speeddrum" ColumnName="Value_speeddrum" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="ss_pressure" ColumnName="ss_pressure" />
-                <ScalarProperty Name="value_pressure" ColumnName="value_pressure" />
-                <ScalarProperty Name="time_update" ColumnName="time_update" />
-                <ScalarProperty Name="ss_speeddrum" ColumnName="ss_speeddrum" />
                 <ScalarProperty Name="timer_action" ColumnName="timer_action" />
+                <ScalarProperty Name="Value_speeddrum" ColumnName="Value_speeddrum" />
+                <ScalarProperty Name="ss_speeddrum" ColumnName="ss_speeddrum" />
+                <ScalarProperty Name="time_update" ColumnName="time_update" />
+                <ScalarProperty Name="value_pressure" ColumnName="value_pressure" />
+                <ScalarProperty Name="ss_pressure" ColumnName="ss_pressure" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERLOGINs">
+            <EntityTypeMapping TypeName="OLAMModel.USERLOGIN">
+              <MappingFragment StoreEntitySet="USERLOGIN">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

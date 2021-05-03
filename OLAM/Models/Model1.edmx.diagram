@@ -5,8 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0c2cb53f1e91481eb0cc380f8d809feb" Name="Diagram1">
-        <EntityTypeShape EntityType="OLAMModel.CUTTING_DRYING" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OLAMModel.PEELING" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OLAMModel.CUTTING_DRYING" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OLAMModel.PEELING" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="OLAMModel.USERLOGIN" Width="1.5" PointX="4.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
