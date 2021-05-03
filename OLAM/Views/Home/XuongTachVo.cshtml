@@ -6,7 +6,7 @@
     ViewBag.Title = "Xưởng Tách Vỏ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{ 
+@{
     DateTime startD = ViewBag.startD;
     DateTime endD = ViewBag.endD;
 }
@@ -51,8 +51,13 @@
     </div>
     <div class="row mb-4">
         <div class="col-4">
-            <button class="btn btn-primary btnUpdate"><i class="fa fa-sync-alt"></i> Update</button>
-            <button class="btn btn-primary"><i class="fa fa-file-excel"></i> Xuất Excel</button>
+            @using (Html.BeginForm("ExportToExcel", "Home", FormMethod.Post))
+            {
+                <button class="btn btn-primary btnUpdate"><i class="fa fa-sync-alt"></i> Update</button>
+
+                <button type="submit" class="btn btn-primary"><i class="fa fa-file-excel"></i> Xuất Excel</button>
+            }
+
         </div>
     </div>
     <div class="row">
@@ -89,8 +94,8 @@
 
                 </tbody>
             </table>
-            
-            @Html.PagedListPager(ViewBag.PEELINGs as PagedList.IPagedList<PEELING>, page => Url.Action("XuongTachVo", new { page }))
+
+            @Html.PagedListPager(ViewBag.PEELINGs as PagedList.IPagedList<PEELING>, page => Url.Action("XuongTachVo", new { page, startdate = startD.ToString("dd/MM/yyyy HH:mm"), enddate = endD.ToString("dd/MM/yyyy HH:mm") }))
         </div>
     </div>
 </div>

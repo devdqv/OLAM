@@ -90,7 +90,7 @@
                 </tbody>
             </table>
 
-            @Html.PagedListPager(ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>, page => Url.Action("XuongTachVo", new { page }))
+            @Html.PagedListPager(ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>, page => Url.Action("XuongSayKho", new { page, startdate= startD.ToString("dd/MM/yyyy HH:mm"), enddate  = endD.ToString("dd/MM/yyyy HH:mm") }))
         </div>
     </div>
 </div>
