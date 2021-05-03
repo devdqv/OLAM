@@ -10,14 +10,14 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Syncfusion.XlsIO;
-
+using System.Data;
+using System.ComponentModel;
 
 namespace OLAM.Controllers
 {
     public class HomeController : BaseController
     {
         // public Models.Saleman mUserInforBH;
-        public System.Globalization.CultureInfo objCultureInfo = new CultureInfo("vi-VN");
 
         public ActionResult Index()
         {
@@ -89,44 +89,40 @@ namespace OLAM.Controllers
         public ActionResult ExportToExcel()
         {
             OLAMEntities db = new OLAMEntities();
-            var gv = new GridView();
-            gv.DataSource = db.PEELINGs.OrderByDescending(x => x.time_update).ToList().Select(x=> new{ x.ss_pressure, x.value_pressure, x.ss_speeddrum, x.Value_speeddrum, x.time_update});
-            gv.DataBind();
-            Response.Clear();
-            Response.Buffer = true;
-            //Response.AddHeader("content-disposition",
-            // "attachment;filename=GridViewExport.xls");
-            Response.Charset = "utf-8";
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AddHeader("content-disposition", "attachment;filename=GridViewExport_Ngay_"+DateTime.Now.ToString("dd-MM")+".xls");
-            //Mã hóa chữa sang UTF8
-            Response.ContentEncoding = System.Text.Encoding.UTF8;
-            Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
-
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-
-            for (int i = 0; i < gv.Rows.Count; i++)
-            {
-                //Apply text style to each Row
-                gv.Rows[i].Attributes.Add("class", "textmode");
-            }
-            //Add màu nền cho header của file excel
-            gv.HeaderRow.BackColor = System.Drawing.Color.DarkOrange;
-            //Màu chữ cho header của file excel
-            gv.HeaderStyle.ForeColor = System.Drawing.Color.White;
-
-            gv.HeaderRow.Cells[0].Text = "Tên cảm biến";
-            gv.HeaderRow.Cells[1].Text = "Giá trị";
-            gv.HeaderRow.Cells[2].Text = "Tên cảm biến";
-            gv.HeaderRow.Cells[3].Text = "Giá trị";
-            gv.HeaderRow.Cells[4].Text = "Ngày cập nhật";
-            gv.RenderControl(hw);
-
-            Response.Output.Write(sw.ToString());
-            Response.Flush();
-            Response.End();
+           var peelings = db.PEELINGs.OrderByDescending(x => x.time_update).Select(x=> new{ x.ss_pressure, x.value_pressure, x.ss_speeddrum, x.Value_speeddrum, x.time_update}).ToList();
+            ExportToExcel excel = new ExportToExcel();
+            DataTable dt = new DataTable();
+            
+            List<string> colNames = new List<string>();
+            colNames.Add("Tên cảm biến");
+            colNames.Add("Giá trị");
+            colNames.Add("Tên cảm biến 2");
+            colNames.Add("Giá trị 2");
+            colNames.Add("Thời gian cập nhật");
+            dt = ToDataTable(peelings, colNames);
+            excel.Export(dt, DateTime.Now.ToString("dd-MM-yyyy"), "Điểm Danh Ngày " + DateTime.Now.ToString("dd-MM-yyyy"), colNames);
             return RedirectToAction("XuongTachVo");
+        }
+
+        public static DataTable ToDataTable<T>(IList<T> data, List<string> colNames)
+        {
+            PropertyDescriptorCollection props =
+                TypeDescriptor.GetProperties(typeof(T));
+            DataTable table = new DataTable();
+            for (int i = 0; i < colNames.Count; i++)
+            {
+                table.Columns.Add(colNames[i], typeof(string));
+            }
+            object[] values = new object[props.Count];
+            foreach (T item in data)
+            {
+                for (int i = 0; i < values.Length; i++)
+                {
+                    values[i] = props[i].GetValue(item);
+                }
+                table.Rows.Add(values);
+            }
+            return table;
         }
 
 
