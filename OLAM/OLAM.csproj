@@ -144,6 +144,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1031,12 +1032,18 @@
     <Content Include="Assets\login\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Assets\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\login\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
+    <Content Include="Assets\login\fonts\Linearicons-Free-v1.0.0\icon-font.min.css" />
+    <Content Include="Assets\login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
     <Content Include="Assets\login\fonts\montserrat\OFL.txt" />
     <Content Include="Assets\login\images\icons\favicon.ico" />
     <Content Include="Assets\login\images\img-01.png" />
     <Content Include="Assets\login\js\facebook.js" />
     <Content Include="Assets\login\js\main.js" />
     <Content Include="Assets\login\vendor\animate\animate.css" />
+    <Content Include="Assets\login\vendor\animistion\css\animsition.css" />
+    <Content Include="Assets\login\vendor\animistion\css\animsition.min.css" />
+    <Content Include="Assets\login\vendor\animistion\js\animsition.js" />
+    <Content Include="Assets\login\vendor\animistion\js\animsition.min.js" />
     <Content Include="Assets\login\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Assets\login\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Assets\login\vendor\bootstrap\css\bootstrap-reboot.css" />
@@ -1048,8 +1055,13 @@
     <Content Include="Assets\login\vendor\bootstrap\js\popper.js" />
     <Content Include="Assets\login\vendor\bootstrap\js\popper.min.js" />
     <Content Include="Assets\login\vendor\bootstrap\js\tooltip.js" />
+    <Content Include="Assets\login\vendor\countdowntime\countdowntime.js" />
     <Content Include="Assets\login\vendor\css-hamburgers\hamburgers.css" />
     <Content Include="Assets\login\vendor\css-hamburgers\hamburgers.min.css" />
+    <Content Include="Assets\login\vendor\daterangepicker\daterangepicker.css" />
+    <Content Include="Assets\login\vendor\daterangepicker\daterangepicker.js" />
+    <Content Include="Assets\login\vendor\daterangepicker\moment.js" />
+    <Content Include="Assets\login\vendor\daterangepicker\moment.min.js" />
     <Content Include="Assets\login\vendor\jquery\jquery-3.2.1.min.js" />
     <Content Include="Assets\login\vendor\select2\select2.css" />
     <Content Include="Assets\login\vendor\select2\select2.js" />
@@ -1487,6 +1499,10 @@
     <Content Include="Assets\webfonts\fa-solid-900.ttf" />
     <Content Include="Assets\webfonts\fa-solid-900.woff" />
     <Content Include="Assets\webfonts\fa-solid-900.woff2" />
+    <Content Include="Assets\login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.eot" />
+    <Content Include="Assets\login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.ttf" />
+    <Content Include="Assets\login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff" />
+    <Content Include="Assets\login\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1497,6 +1513,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1512,6 +1529,7 @@
     <Content Include="Views\Home\XuongTachVo.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\XuongSayKho.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
