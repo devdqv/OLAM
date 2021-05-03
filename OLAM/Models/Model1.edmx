@@ -16,6 +16,7 @@
           <Property Name="value_humidity" Type="float" />
           <Property Name="timer1" Type="int" />
           <Property Name="timer2" Type="int" />
+          <Property Name="value_temper" Type="float" />
         </EntityType>
         <EntityType Name="PEELING">
           <Key>
@@ -49,6 +50,7 @@
           <Property Name="value_humidity" Type="Double" />
           <Property Name="timer1" Type="Int32" />
           <Property Name="timer2" Type="Int32" />
+          <Property Name="value_temper" Type="Double" />
         </EntityType>
         <EntityType Name="PEELING">
           <Key>
@@ -76,6 +78,7 @@
           <EntitySetMapping Name="CUTTING_DRYING">
             <EntityTypeMapping TypeName="OLAMModel.CUTTING_DRYING">
               <MappingFragment StoreEntitySet="CUTTING_DRYING">
+                <ScalarProperty Name="value_temper" ColumnName="value_temper" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ss_temper" ColumnName="ss_temper" />
                 <ScalarProperty Name="time_update" ColumnName="time_update" />

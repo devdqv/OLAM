@@ -21,5 +21,6 @@ namespace OLAM.Models
         public Nullable<double> value_humidity { get; set; }
         public Nullable<int> timer1 { get; set; }
         public Nullable<int> timer2 { get; set; }
+        public Nullable<double> value_temper { get; set; }
     }
 }

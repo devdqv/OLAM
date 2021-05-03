@@ -13,6 +13,11 @@ namespace OLAM
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(
+             name: "xuong-say-kho",
+             url: "xuong-say-kho",
+             defaults: new { controller = "Home", action = "XuongSayKho", id = UrlParameter.Optional }
+         );
 
             routes.MapRoute(
                name: "xuong-tach-vo",

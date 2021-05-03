@@ -3,10 +3,10 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Xưởng Tách Vỏ";
+    ViewBag.Title = "Xưởng Sấy Khô";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{ 
+@{
     DateTime startD = ViewBag.startD;
     DateTime endD = ViewBag.endD;
 }
@@ -18,7 +18,7 @@
                 e.preventDefault();
                 startdate = $('.startdate').val() + " " + $('.starttime').val();
                 enddate = $('.enddate').val() + " " + $('.endtime').val();
-                location.href = "/xuong-tach-vo?startdate=" + startdate + "&enddate=" + enddate;
+                location.href = "/xuong-say-kho?startdate=" + startdate + "&enddate=" + enddate;
             })
         })
     </script>
@@ -60,8 +60,8 @@
             <table class=" table table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center" colspan="2">Áp suất (Bar)</th>
-                        <th class="text-center" colspan="2">Tốc độ (Drum)</th>
+                        <th class="text-center" colspan="2">Nhiệt độ (độ C)</th>
+                        <th class="text-center" colspan="2">Độ ẩm (%)</th>
                         <th></th>
                     </tr>
                     <tr>
@@ -74,13 +74,13 @@
 
                 </thead>
                 <tbody>
-                    @foreach (PEELING x in ViewBag.PEELINGs as PagedList.IPagedList<PEELING>)
+                    @foreach (CUTTING_DRYING x in ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>)
                     {
                         <tr>
-                            <th>@x.ss_pressure</th>
-                            <td>@x.value_pressure</td>
-                            <td>@x.ss_speeddrum</td>
-                            <td>@x.Value_speeddrum</td>
+                            <th>@x.ss_temper</th>
+                            <td>@x.value_temper</td>
+                            <td>@x.ss_humidity</td>
+                            <td>@x.value_humidity</td>
                             <td>@(x.time_update == null ? "" : x.time_update.Value.ToString("dd/MM/yyyy hh:mm tt"))</td>
                         </tr>
                     }
@@ -89,8 +89,8 @@
 
                 </tbody>
             </table>
-            
-            @Html.PagedListPager(ViewBag.PEELINGs as PagedList.IPagedList<PEELING>, page => Url.Action("XuongTachVo", new { page }))
+
+            @Html.PagedListPager(ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>, page => Url.Action("XuongTachVo", new { page }))
         </div>
     </div>
 </div>

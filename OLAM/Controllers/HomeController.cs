@@ -49,6 +49,37 @@ namespace OLAM.Controllers
             return View();
         }
 
+        public ActionResult XuongSayKho(string startdate = "", string enddate = "", int page = 1, int pageSize = 6)
+        {
+
+            OLAMEntities db = new OLAMEntities();
+            var CUTTING_DRYINGs = db.CUTTING_DRYING.OrderByDescending(x => x.time_update);
+            DateTime datenow = DateTime.Now;
+            DateTime startD = new DateTime();
+            DateTime endD = new DateTime();
+            if (!string.IsNullOrEmpty(startdate) && !string.IsNullOrEmpty(enddate))
+            {
+                startD = Convert.ToDateTime(startdate, objCultureInfo);
+                ViewBag.startD = startD;
+                endD = Convert.ToDateTime(enddate, objCultureInfo);
+                ViewBag.endD = endD;
+
+
+            }
+            else
+            {
+                startD = new DateTime(datenow.Year, datenow.Month, datenow.Day, 0, 0, 0);
+                ViewBag.startD = startD;
+                endD = new DateTime(datenow.Year, datenow.Month, datenow.Day + 3, 23, 59, 59);
+                ViewBag.endD = endD;
+            }
+            ViewBag.CUTTING_DRYINGs = CUTTING_DRYINGs.Where(x => x.time_update <= endD && x.time_update >= startD).ToPagedList(page, pageSize);
+
+
+
+            return View();
+        }
+
 
     }
 }
