@@ -1,8 +1,8 @@
-﻿
-@{
-    ViewBag.Title = "Login";
+﻿@{
+    Layout = null;
 }
-
+@using OLAM.Models;
+@model USERLOGIN
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,55 +10,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <link rel="icon" type="image/png" href="/Assets/login/images/icons/favicon.ico" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/animate/animate.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/css-hamburgers/hamburgers.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/vendor/animistion/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/select2/select2.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/css/main.css">
-    <link rel="stylesheet" type="text/css" href="~/Assets/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/login/css/main.css">
     <!--===============================================================================================-->
 </head>
 <body>
 
     <div class="limiter">
-        <div class="container-login100">
+        <div class="container-login100" style="background-image: url('/Assets/login/images/bg-01.jpg');">
             <div class="wrap-login100 p-t-30 p-b-50">
                 <span class="login100-form-title p-b-41">
-                    OLAM Login
+                    OLAM
                 </span>
-                <form class="login100-form validate-form p-b-33 p-t-5">
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "login100-form validate-form p-b-33 p-t-5" }))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="wrap-input100 validate-input" data-validate="Nhập tên đăng nhập">
+                    @*<input class="input100" type="text" name="username" placeholder="Tên đăng nhập">*@
+                    @Html.TextBoxFor(x => x.username, new { @class = "input100", @placeholder = "Tên đăng nhập" })
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter username">
-                        <input class="input100" type="text" name="username" placeholder="User name">
-                        <span class="focus-input100" data-placeholder="&#xe82a;"></span>
-                    </div>
+                    <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                    <div class="wrap-input100 validate-input" data-validate="Nhập mật khẩu">
+                        @*<input class="input100" type="password" name="password" placeholder="Mật khẩu">*@
+                        @Html.PasswordFor(x=>x.password, new { @class= "input100", @placeholder = "Mật khẩu" })
                         <span class="focus-input100" data-placeholder="&#xe80f;"></span>
                     </div>
-
+                    <div class="text-center">
+                        @Html.ValidationSummary(false, "", new { @class="text text-danger"})
+                    </div>
                     <div class="container-login100-form-btn m-t-32">
-                        <button class="login100-form-btn">
-                            Login
+                        <button type="submit" class="login100-form-btn">
+                            Đăng nhập
                         </button>
                     </div>
-
-                </form>
+                }
             </div>
         </div>
     </div>
@@ -67,21 +72,21 @@
     <div id="dropDownSelect1"></div>
 
     <!--===============================================================================================-->
-    <script src="~/Assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/Assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Assets/login/vendor/animistion/js/animsition.min.js"></script>
+    <script src="/Assets/login/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Assets/login/vendor/bootstrap/js/popper.js"></script>
-    <script src="~/Assets/login/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="/Assets/login/vendor/bootstrap/js/popper.js"></script>
+    <script src="/Assets/login/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Assets/login/vendor/select2/select2.min.js"></script>
+    <script src="/Assets/login/vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Assets/login/vendor/daterangepicker/moment.min.js"></script>
-    <script src="~/Assets/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="/Assets/login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/Assets/login/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Assets/login/vendor/countdowntime/countdowntime.js"></script>
+    <script src="/Assets/login/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
-    <script src="~/Scripts/login.js"></script>
+    <script src="/Assets/login/js/main.js"></script>
 
 </body>
 </html>

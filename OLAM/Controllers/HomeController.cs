@@ -14,7 +14,7 @@ using Syncfusion.XlsIO;
 
 namespace OLAM.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         // public Models.Saleman mUserInforBH;
         public System.Globalization.CultureInfo objCultureInfo = new CultureInfo("vi-VN");
@@ -97,7 +97,7 @@ namespace OLAM.Controllers
             //Response.AddHeader("content-disposition",
             // "attachment;filename=GridViewExport.xls");
             Response.Charset = "utf-8";
-            Response.ContentType = "application/Excel";
+            Response.ContentType = "application/vnd.ms-excel";
             Response.AddHeader("content-disposition", "attachment;filename=GridViewExport_Ngay_"+DateTime.Now.ToString("dd-MM")+".xls");
             //Mã hóa chữa sang UTF8
             Response.ContentEncoding = System.Text.Encoding.UTF8;
