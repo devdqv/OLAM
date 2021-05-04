@@ -16,6 +16,14 @@
         $(document).ready(function () {
             $('.btnUpdate').click(function (e) {
                 e.preventDefault();
+                if ($('.startdate').val().trim() == "") {
+                    createMessageBox("Bạn phải điền ngày bắt đầu");
+                    return false;
+                }
+                if ($('.enddate').val().trim() == "") {
+                    createMessageBox("Bạn phải điền ngày kết thúc");
+                    return false;
+                }
                 startdate = $('.startdate').val() + " " + $('.starttime').val();
                 enddate = $('.enddate').val() + " " + $('.endtime').val();
                 location.href = "/xuong-tach-vo?startdate=" + startdate + "&enddate=" + enddate;

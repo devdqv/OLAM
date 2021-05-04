@@ -25,7 +25,7 @@ namespace OLAM.Controllers
         {
             return View();
         }
-        public ActionResult XuongTachVo(string startdate = "", string enddate = "", int page = 1, int pageSize = 6)
+        public ActionResult XuongTachVo(string startdate = "", string enddate = "", int page = 1, int pageSize = 15)
         {
 
             OLAMEntities db = new OLAMEntities();
@@ -64,7 +64,7 @@ namespace OLAM.Controllers
             return View();
         }
 
-        public ActionResult XuongSayKho(string startdate = "", string enddate = "", int page = 1, int pageSize = 6)
+        public ActionResult XuongSayKho(string startdate = "", string enddate = "", int page = 1, int pageSize = 15)
         {
 
             OLAMEntities db = new OLAMEntities();
