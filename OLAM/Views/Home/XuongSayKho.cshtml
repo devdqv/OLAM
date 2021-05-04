@@ -25,78 +25,79 @@
 
 }
 
-<div class="container">
-    <div class="row mb-5">
-        <div class="col-12"><b class="h3 color-buy-now">XƯỞNG TÁCH VỎ</b></div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 col-sm-3  form-group">
-            <label class="col-form-label">Ngày bắt đầu <span class="red">*</span></label>
-            <input type="text" class="form-control date startdate" value="@(startD.ToString("dd/MM/yyyy"))" placeholder="" required="">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12"><b class="h3 color-buy-now">XƯỞNG TÁCH VỎ</b></div>
         </div>
-        <div class="col-md-2 col-sm-2  form-group">
-            <label class="col-form-label">Giờ bắt đầu <span class="red">*</span></label>
-            <input type="text" class="timepicker starttime" placeholder="" value="@(startD.ToString("HH:mm"))">
-        </div>
-        <div class="col-2"></div>
-        <div class="col-md-3 col-sm-3  form-group">
-            <label class="col-form-label">Ngày kết thúc <span class="red">*</span></label>
-            <input type="text" class="form-control date enddate" value="@(endD.ToString("dd/MM/yyyy"))" placeholder="" required="">
-        </div>
-        <div class="col-md-2 col-sm-2  form-group">
-            <label class="col-form-label">Giờ kết thúc <span class="red">*</span></label>
-            <input type="text" class=" timepicker endtime" placeholder="" value="@(endD.ToString("HH:mm"))">
-        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3  form-group">
+                <label class="col-form-label">Ngày bắt đầu <span class="red">*</span></label>
+                <input type="text" class="form-control date startdate" value="@(startD.ToString("dd/MM/yyyy"))" placeholder="" required="">
+            </div>
+            <div class="col-md-2 col-sm-2  form-group">
+                <label class="col-form-label">Giờ bắt đầu <span class="red">*</span></label>
+                <input type="text" class="timepicker starttime" placeholder="" value="@(startD.ToString("HH:mm"))">
+            </div>
+            <div class="col-2"></div>
+            <div class="col-md-3 col-sm-3  form-group">
+                <label class="col-form-label">Ngày kết thúc <span class="red">*</span></label>
+                <input type="text" class="form-control date enddate" value="@(endD.ToString("dd/MM/yyyy"))" placeholder="" required="">
+            </div>
+            <div class="col-md-2 col-sm-2  form-group">
+                <label class="col-form-label">Giờ kết thúc <span class="red">*</span></label>
+                <input type="text" class=" timepicker endtime" placeholder="" value="@(endD.ToString("HH:mm"))">
+            </div>
 
-    </div>
-    <div class="row mb-4">
-        <div class="col-4">
-            @using (Html.BeginForm("ExportToExcelXuongSayKho", "Home", new { startdate = startD.ToString("dd/MM/yyyy HH:mm"), enddate = endD.ToString("dd/MM/yyyy hh:mm") }, FormMethod.Post))
-            {
-                <button class="btn btn-primary btnUpdate"><i class="fa fa-sync-alt"></i> Update</button>
-
-                <button type="submit" class="btn btn-primary"><i class="fa fa-file-excel"></i> Xuất Excel</button>
-            }
         </div>
-    </div>
-    <div>Timer: @(ViewBag.timer)</div>
-    <div class="row">
-        <div class="col-12">
-            <table class=" table table-striped">
-                <thead>
-                    <tr>
-                        <th class="text-center" colspan="2">Nhiệt độ (độ C)</th>
-                        <th class="text-center" colspan="2">Độ ẩm (%)</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>Tên cảm biến</th>
-                        <th>Giá trị</th>
-                        <th>Tên cảm biến</th>
-                        <th>Giá trị</th>
-                        <th>Thời gian cập nhật</th>
-                    </tr>
+        <div class="row mb-4">
+            <div class="col-4">
+                @using (Html.BeginForm("ExportToExcelXuongSayKho", "Home", new { timer1 = ViewBag.timer1, timer2 = ViewBag.timer2, startdate = startD.ToString("dd/MM/yyyy HH:mm"), enddate = endD.ToString("dd/MM/yyyy hh:mm") }, FormMethod.Post))
+                {
+                    <button class="btn btn-primary btnUpdate"><i class="fa fa-sync-alt"></i> Update</button>
 
-                </thead>
-                <tbody>
-                    @foreach (CUTTING_DRYING x in ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>)
-                    {
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-file-excel"></i> Xuất Excel</button>
+                }
+            </div>
+        </div>
+        <div>Timer1: @(ViewBag.timer1) giờ</div>
+        <div>Timer2: @(ViewBag.timer2) giờ</div>
+        <div class="row">
+            <div class="col-12">
+                <table class=" table table-striped">
+                    <thead>
                         <tr>
-                            <th>@x.ss_temper</th>
-                            <td>@x.value_temper</td>
-                            <td>@x.ss_humidity</td>
-                            <td>@x.value_humidity</td>
-                            <td>@(x.time_update == null ? "" : x.time_update.Value.ToString("dd/MM/yyyy hh:mm tt"))</td>
+                            <th class="text-center" colspan="2">Nhiệt độ (độ C)</th>
+                            <th class="text-center" colspan="2">Độ ẩm (%)</th>
+                            <th></th>
                         </tr>
-                    }
+                        <tr>
+                            <th>Tên cảm biến</th>
+                            <th>Giá trị</th>
+                            <th>Tên cảm biến</th>
+                            <th>Giá trị</th>
+                            <th>Thời gian cập nhật</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        @foreach (CUTTING_DRYING x in ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>)
+                        {
+                            <tr>
+                                <th>@x.ss_temper</th>
+                                <td>@x.value_temper</td>
+                                <td>@x.ss_humidity</td>
+                                <td>@x.value_humidity</td>
+                                <td>@(x.time_update == null ? "" : x.time_update.Value.ToString("dd/MM/yyyy hh:mm tt"))</td>
+                            </tr>
+                        }
 
 
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
-            @Html.PagedListPager(ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>, page => Url.Action("XuongSayKho", new { page, startdate= startD.ToString("dd/MM/yyyy HH:mm"), enddate  = endD.ToString("dd/MM/yyyy HH:mm") }))
+                @Html.PagedListPager(ViewBag.CUTTING_DRYINGs as PagedList.IPagedList<CUTTING_DRYING>, page => Url.Action("XuongSayKho", new { page, startdate = startD.ToString("dd/MM/yyyy HH:mm"), enddate = endD.ToString("dd/MM/yyyy HH:mm") }))
+            </div>
         </div>
     </div>
-</div>
 

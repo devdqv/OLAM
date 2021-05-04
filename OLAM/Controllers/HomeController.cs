@@ -93,18 +93,21 @@ namespace OLAM.Controllers
             var listCutting = CUTTING_DRYINGs.Where(x => x.time_update <= endD && x.time_update >= startD).ToList();
             if (listCutting.Count == 0)
             {
-                ViewBag.timer = 0;
+                ViewBag.timer1 = 0;
+                ViewBag.timer2 = 0;
             } else
             {
-                var maxTimer = listCutting.Max(x => Math.Max(x.timer1.Value, x.timer2.Value));
-                ViewBag.timer = Math.Round((double)maxTimer / 1000 / 3600 * 100) / 100;
+                var maxTimer1 = listCutting.Max(x =>x.timer1.Value);
+                var maxTimer2 = listCutting.Max(x =>x.timer2.Value);
+                ViewBag.timer1 = Math.Round((double)maxTimer1 / 1000 / 3600 * 100) / 100;
+                ViewBag.timer2 = Math.Round((double)maxTimer2 / 1000 / 3600 * 100) / 100;
             }
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult ExportToExcelXuongTachVo(string startdate = "", string enddate = "")
+        public ActionResult ExportToExcelXuongTachVo(string startdate = "", string enddate = "", double timer=0.0)
         {
             OLAMEntities db = new OLAMEntities();
 
@@ -139,7 +142,9 @@ namespace OLAM.Controllers
             ws.Cells["D2"].Value = enddate;
 
             ws.Cells["a4"].Value = "Timer";
-            ws.Cells["b4"].Value = "....";
+            ws.Cells["b4"].Value = timer + " giờ";
+            ws.Cells["b4"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells["b4"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
 
             ws.Row(6).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
             ws.Row(6).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
@@ -182,7 +187,7 @@ namespace OLAM.Controllers
 
 
         [HttpPost]
-        public ActionResult ExportToExcelXuongSayKho(string startdate = "", string enddate = "")
+        public ActionResult ExportToExcelXuongSayKho(string startdate = "", string enddate = "", double timer1=0.0, double timer2=0.0)
         {
             OLAMEntities db = new OLAMEntities();
 
@@ -215,8 +220,15 @@ namespace OLAM.Controllers
             ws.Cells["D2"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
             ws.Cells["D2"].Value = enddate;
 
-            ws.Cells["a4"].Value = "Timer";
-            ws.Cells["b4"].Value = "....";
+            ws.Cells["a4"].Value = "Timer1" ;
+            ws.Cells["b4"].Value = timer1 + " giờ";
+            ws.Cells["b4"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells["b4"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+            ws.Cells["c4"].Value = "Timer2";
+            ws.Cells["d4"].Value = timer2 + " giờ";
+            ws.Cells["d4"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells["d4"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+
 
             ws.Row(6).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
             ws.Row(6).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
