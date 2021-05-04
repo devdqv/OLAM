@@ -51,7 +51,7 @@
     </div>
     <div class="row mb-4">
         <div class="col-4">
-            @using (Html.BeginForm("ExportToExcel", "Home", FormMethod.Post))
+            @using (Html.BeginForm("ExportToExcel", "Home", new { startdate = startD.ToString("dd/MM/yyyy hh:mm"), enddate = endD.ToString("dd/MM/yyyy hh:mm") }, FormMethod.Post))
             {
                 <button class="btn btn-primary btnUpdate"><i class="fa fa-sync-alt"></i> Update</button>
 
