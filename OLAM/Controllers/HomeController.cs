@@ -113,8 +113,9 @@ namespace OLAM.Controllers
             ws.Cells["A1"].Value = "LOẠI";
             ws.Cells["B1"].Value = "Xưởng tách vỏ";
 
-            ws.Cells["A2"].Value = "Ngày xuất báo cáo";
-            ws.Cells["B2"].Value = DateTime.Now.ToString("dd/MM/yyyy hh:mm");
+            ws.Cells["A2"].Value = "Khoảng thời gian cập nhật";
+            ws.Cells["B2"].Value = startdate;
+            ws.Cells["B3"].Value = enddate;
 
             ws.Cells["a4"].Value = "Timer";
             ws.Cells["b4"].Value = "....";
