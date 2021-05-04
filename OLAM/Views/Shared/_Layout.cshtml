@@ -1,4 +1,4 @@
-﻿
+﻿@using OLAM.Models
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,7 +127,7 @@
                             <li class="user-profile header-notification">
                                 <a href="#!">
                                     <img src="#" class="img-radius">
-                                    <span>ADMIN</span>
+                                    <span>@((Session["user"] as USERLOGIN).name)</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
