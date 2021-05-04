@@ -51,8 +51,12 @@
     </div>
     <div class="row mb-4">
         <div class="col-4">
-            <button class="btn btn-primary btnUpdate"><i class="fa fa-sync-alt"></i> Update</button>
-            <button class="btn btn-primary"><i class="fa fa-file-excel"></i> Xuất Excel</button>
+            @using (Html.BeginForm("ExportToExcelXuongSayKho", "Home", new { startdate = startD.ToString("dd/MM/yyyy HH:mm"), enddate = endD.ToString("dd/MM/yyyy hh:mm") }, FormMethod.Post))
+            {
+                <button class="btn btn-primary btnUpdate"><i class="fa fa-sync-alt"></i> Update</button>
+
+                <button type="submit" class="btn btn-primary"><i class="fa fa-file-excel"></i> Xuất Excel</button>
+            }
         </div>
     </div>
     <div class="row">

@@ -150,7 +150,7 @@ namespace OLAM.Controllers
                 ws.Cells[string.Format("B{0}", rowStart)].Value = item.value_pressure;
                 ws.Cells[string.Format("C{0}", rowStart)].Value = item.ss_speeddrum;
                 ws.Cells[string.Format("D{0}", rowStart)].Value = item.Value_speeddrum;
-                ws.Cells[string.Format("E{0}", rowStart)].Value = item.time_update.Value.ToString("dd/MM/yyyy hh:mm");
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.time_update.Value.ToString("dd/MM/yyyy HH:mm");
                 rowStart++;
             }
 
@@ -188,7 +188,7 @@ namespace OLAM.Controllers
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
 
             ws.Cells["A1"].Value = "LOẠI";
-            ws.Cells["B1"].Value = "Xưởng tách vỏ";
+            ws.Cells["B1"].Value = "Xưởng sấy khô";
 
             ws.Cells["A2"].Value = "Từ ngày";
             ws.Cells["B2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -227,7 +227,7 @@ namespace OLAM.Controllers
                 ws.Cells[string.Format("B{0}", rowStart)].Value = item.value_temper;
                 ws.Cells[string.Format("C{0}", rowStart)].Value = item.ss_humidity;
                 ws.Cells[string.Format("D{0}", rowStart)].Value = item.value_humidity;
-                ws.Cells[string.Format("E{0}", rowStart)].Value = item.time_update.Value.ToString("dd/MM/yyyy hh:mm");
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.time_update.Value.ToString("dd/MM/yyyy HH:mm");
                 rowStart++;
             }
 
