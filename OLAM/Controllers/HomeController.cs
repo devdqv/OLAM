@@ -49,7 +49,15 @@ namespace OLAM.Controllers
             }
             ViewBag.PEELINGs = pEELINGs.Where(x => x.time_update <= endD && x.time_update >= startD).ToPagedList(page, pageSize);
 
-
+            var listPeelings = pEELINGs.Where(x => x.time_update <= endD && x.time_update >= startD).ToList();
+            if (listPeelings.Count == 0)
+            {
+                ViewBag.timer = 0;
+            } else
+            {
+                var maxTimer = listPeelings.Max(x => x.timer_action).Value;
+                ViewBag.timer = Math.Round((double)maxTimer / 1000 / 3600 * 100) / 100;
+            }
 
             return View();
         }
@@ -80,7 +88,15 @@ namespace OLAM.Controllers
             }
             ViewBag.CUTTING_DRYINGs = CUTTING_DRYINGs.Where(x => x.time_update <= endD && x.time_update >= startD).ToPagedList(page, pageSize);
 
-
+            var listCutting = CUTTING_DRYINGs.Where(x => x.time_update <= endD && x.time_update >= startD).ToList();
+            if (listCutting.Count == 0)
+            {
+                ViewBag.timer = 0;
+            } else
+            {
+                var maxTimer = listCutting.Max(x => Math.Max(x.timer1.Value, x.timer2.Value));
+                ViewBag.timer = Math.Round((double)maxTimer / 1000 / 3600 * 100) / 100;
+            }
 
             return View();
         }
