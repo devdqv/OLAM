@@ -12,6 +12,8 @@ using System.Web.UI.WebControls;
 using Syncfusion.XlsIO;
 using System.Data;
 using System.ComponentModel;
+using OfficeOpenXml;
+using System.Drawing;
 
 namespace OLAM.Controllers
 {
@@ -102,44 +104,160 @@ namespace OLAM.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExportToExcel()
+        public ActionResult ExportToExcelXuongTachVo(string startdate = "", string enddate = "")
         {
             OLAMEntities db = new OLAMEntities();
-           var peelings = db.PEELINGs.OrderByDescending(x => x.time_update).Select(x=> new{ x.ss_pressure, x.value_pressure, x.ss_speeddrum, x.Value_speeddrum, x.time_update}).ToList();
-            ExportToExcel excel = new ExportToExcel();
-            DataTable dt = new DataTable();
-            
-            List<string> colNames = new List<string>();
-            colNames.Add("Tên cảm biến");
-            colNames.Add("Giá trị");
-            colNames.Add("Tên cảm biến 2");
-            colNames.Add("Giá trị 2");
-            colNames.Add("Thời gian cập nhật");
-            dt = ToDataTable(peelings, colNames);
-            excel.Export(dt, DateTime.Now.ToString("dd-MM-yyyy"), "Điểm Danh Ngày " + DateTime.Now.ToString("dd-MM-yyyy"), colNames);
+
+            DateTime startD = new DateTime();
+            DateTime endD = new DateTime();
+            if (!string.IsNullOrEmpty(startdate) && !string.IsNullOrEmpty(enddate))
+            {
+                startD = Convert.ToDateTime(startdate, objCultureInfo);
+                ViewBag.startD = startD;
+                endD = Convert.ToDateTime(enddate, objCultureInfo);
+                ViewBag.endD = endD;
+
+
+            }
+
+            List<PEELINGModel> peelings = db.PEELINGs.Where(x => x.time_update <= endD && x.time_update >= startD).OrderByDescending(x => x.time_update).Select(x=> 
+           new PEELINGModel{ ss_pressure= x.ss_pressure, value_pressure= x.value_pressure, ss_speeddrum= x.ss_speeddrum, Value_speeddrum=x.Value_speeddrum, time_update=x.time_update}).ToList();
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+
+            ws.Cells["A1"].Value = "LOẠI";
+            ws.Cells["B1"].Value = "Xưởng tách vỏ";
+
+            ws.Cells["A2"].Value = "Từ ngày";
+            ws.Cells["B2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells["B2"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+            ws.Cells["B2"].Value = startdate;
+            ws.Cells["C2"].Value = "Đến ngày";
+            ws.Cells["D2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells["D2"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+            ws.Cells["D2"].Value = enddate;
+
+            ws.Cells["a4"].Value = "Timer";
+            ws.Cells["b4"].Value = "....";
+
+            ws.Row(6).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Row(6).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+            ws.Cells["A6"].Value = "Áp suất(Bar)";
+            ws.Cells["C6"].Value = "Tốc độ(Drum)";
+
+            ws.Cells["A7"].Value = "Tên cảm biến";
+            ws.Cells["B7"].Value = "Giá trị";
+            ws.Cells["C7"].Value = "Tên cảm biến";
+            ws.Cells["D7"].Value = "Giá trị";
+            ws.Cells["E7"].Value = "Thời gian cập nhật";
+
+            int rowStart = 8;
+            foreach (var item in peelings)
+            {
+                //if (item.Experience < 5)
+                //{
+                //    ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                //    ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+
+                //}
+
+                ws.Cells[string.Format("A{0}", rowStart)].Value = item.ss_pressure;
+                ws.Cells[string.Format("B{0}", rowStart)].Value = item.value_pressure;
+                ws.Cells[string.Format("C{0}", rowStart)].Value = item.ss_speeddrum;
+                ws.Cells[string.Format("D{0}", rowStart)].Value = item.Value_speeddrum;
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.time_update.Value.ToString("dd/MM/yyyy HH:mm");
+                rowStart++;
+            }
+
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
+
             return RedirectToAction("XuongTachVo");
         }
 
-        public static DataTable ToDataTable<T>(IList<T> data, List<string> colNames)
+
+        [HttpPost]
+        public ActionResult ExportToExcelXuongSayKho(string startdate = "", string enddate = "")
         {
-            PropertyDescriptorCollection props =
-                TypeDescriptor.GetProperties(typeof(T));
-            DataTable table = new DataTable();
-            for (int i = 0; i < colNames.Count; i++)
+            OLAMEntities db = new OLAMEntities();
+
+            DateTime startD = new DateTime();
+            DateTime endD = new DateTime();
+            if (!string.IsNullOrEmpty(startdate) && !string.IsNullOrEmpty(enddate))
             {
-                table.Columns.Add(colNames[i], typeof(string));
+                startD = Convert.ToDateTime(startdate, objCultureInfo);
+                ViewBag.startD = startD;
+                endD = Convert.ToDateTime(enddate, objCultureInfo);
+                ViewBag.endD = endD;
+
+
             }
-            object[] values = new object[props.Count];
-            foreach (T item in data)
+
+            List<CUTTING_DRYING> peelings = db.CUTTING_DRYING.Where(x => x.time_update <= endD && x.time_update >= startD).OrderByDescending(x => x.time_update).ToList();
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+
+            ws.Cells["A1"].Value = "LOẠI";
+            ws.Cells["B1"].Value = "Xưởng sấy khô";
+
+            ws.Cells["A2"].Value = "Từ ngày";
+            ws.Cells["B2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells["B2"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+            ws.Cells["B2"].Value = startdate;
+            ws.Cells["C2"].Value = "Đến ngày";
+            ws.Cells["D2"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Cells["D2"].Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+            ws.Cells["D2"].Value = enddate;
+
+            ws.Cells["a4"].Value = "Timer";
+            ws.Cells["b4"].Value = "....";
+
+            ws.Row(6).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+            ws.Row(6).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+            ws.Cells["A6"].Value = "Nhiệt độ (Độ C)";
+            ws.Cells["C6"].Value = "ĐỘ ẩm (%)";
+
+            ws.Cells["A7"].Value = "Tên cảm biến";
+            ws.Cells["B7"].Value = "Giá trị";
+            ws.Cells["C7"].Value = "Tên cảm biến";
+            ws.Cells["D7"].Value = "Giá trị";
+            ws.Cells["E7"].Value = "Thời gian cập nhật";
+
+            int rowStart = 8;
+            foreach (var item in peelings)
             {
-                for (int i = 0; i < values.Length; i++)
-                {
-                    values[i] = props[i].GetValue(item);
-                }
-                table.Rows.Add(values);
+                //if (item.Experience < 5)
+                //{
+                //    ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                //    ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+
+                //}
+
+                ws.Cells[string.Format("A{0}", rowStart)].Value = item.ss_temper;
+                ws.Cells[string.Format("B{0}", rowStart)].Value = item.value_temper;
+                ws.Cells[string.Format("C{0}", rowStart)].Value = item.ss_humidity;
+                ws.Cells[string.Format("D{0}", rowStart)].Value = item.value_humidity;
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.time_update.Value.ToString("dd/MM/yyyy HH:mm");
+                rowStart++;
             }
-            return table;
+
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
+
+            return RedirectToAction("XuongTachVo");
         }
+
+
 
 
     }

@@ -29,7 +29,7 @@ namespace OLAM
 
             oExcel.DisplayAlerts = false;
 
-           // oExcel.Application.SheetsInNewWorkbook = 1;
+            oExcel.Application.SheetsInNewWorkbook = 1;
 
             oBooks = oExcel.Workbooks;
 
@@ -54,8 +54,7 @@ namespace OLAM
             head.MergeCells = true;
 
             head.Value2 = title;
-
-            head.Font.Bold = true;
+            
 
             head.Font.Name = "Tahoma";
 
